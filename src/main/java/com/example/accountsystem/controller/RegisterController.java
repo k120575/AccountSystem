@@ -14,11 +14,13 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(){
+
         return "register";
     }
 
     @PostMapping("/register")
     public String register(String name, String password){
+
         return registerService.register(name, password);
     }
 }
