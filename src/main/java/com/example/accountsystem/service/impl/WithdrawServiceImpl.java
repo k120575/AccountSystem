@@ -3,6 +3,7 @@ package com.example.accountsystem.service.impl;
 import com.example.accountsystem.entity.AccountDetail;
 import com.example.accountsystem.repository.AccountDetailRepository;
 import com.example.accountsystem.service.DepositService;
+import com.example.accountsystem.service.WithdrawService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class DepositServiceImpl implements DepositService {
+public class WithdrawServiceImpl implements WithdrawService {
 
-    private Log log = LogFactory.getLog(DepositServiceImpl.class);
+    private Log log = LogFactory.getLog(WithdrawServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String deposit(Integer credits, Model model, HttpServletRequest request) {
+    public String withdraw(Integer credits, Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null){
             AccountDetail accountDetail = new AccountDetail();
-            accountDetail.setAction("Deposit");
+            accountDetail.setAction("Withdraw");
             if (credits >= 0){
                 accountDetail.setCredits(credits);
             } else {
@@ -35,19 +36,20 @@ public class DepositServiceImpl implements DepositService {
             String user = (String)request.getSession().getAttribute("user") ;
             int newBalance = 0;
             List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
-            if (accountDetails.size() != 0){
-                newBalance = credits + accountDetails.get(0).getBalance();
+            if (accountDetails.size() != 0 && accountDetails.get(0).getBalance() != 0){
+                newBalance = accountDetails.get(0).getBalance() - credits;
+                accountDetail.setBalance(newBalance);
+                accountDetail.setCreateUser(user);
+                accountDetail.setCreateTime(LocalDateTime.now());
+                accountDetailRepository.saveAndFlush(accountDetail);
+                model.addAttribute("user", user);
+                model.addAttribute("isLogin", true);
+                log.info("Deposit success");
             } else {
-                newBalance = credits;
+                log.info("no money");
             }
-            accountDetail.setBalance(newBalance);
-            accountDetail.setCreateUser(user);
-            accountDetail.setCreateTime(LocalDateTime.now());
-            accountDetailRepository.saveAndFlush(accountDetail);
-            model.addAttribute("user", user);
-            model.addAttribute("isLogin", true);
-            log.info("Deposit success");
         }
         return "redirect:/index";
+
     }
 }
