@@ -17,7 +17,6 @@ public class IndexController {
     @GetMapping("/index")
     private String index(Model model, HttpServletRequest request){
         User user = new User();
-        boolean isLogin = false;
         if (request.getSession().getAttribute("user") != null){
             String name = (String) request.getSession().getAttribute("user");
             user.setName(name);

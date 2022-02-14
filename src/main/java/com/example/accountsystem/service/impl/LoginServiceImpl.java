@@ -29,7 +29,6 @@ public class LoginServiceImpl implements LoginService {
             HttpSession session = req.getSession();
             session.setAttribute("user", name);
             String sessionId = session.getId();
-            log.info("sessionId : " + sessionId);
             return "redirect:/index";
         } else {
             log.info("Login false");

@@ -28,8 +28,6 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public String getInquiry(Model model, HttpServletRequest req) {
         User user = new User();
-        boolean isLogin = false;
-        boolean hasData = false;
         if (req.getSession().getAttribute("user") != null){
             String name = (String)req.getSession().getAttribute("user");
             List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(name);
@@ -41,12 +39,12 @@ public class InquiryServiceImpl implements InquiryService {
             if (accountDetails.size() != 0){
                 model.addAttribute("hasData", true);
                 model.addAttribute("balance", accountDetails.get(0).getBalance());
-                model.addAllAttributes(accountDetails);
+                model.addAttribute("accountDetails", accountDetails);
             } else {
                 model.addAttribute("hasData", false);
                 model.addAttribute("balance", 0);
             }
-            log.info("Inquiry success : " + req.getSession().getId());
+            log.info("Inquiry success");
             return "inquiry";
         } else {
             model.addAttribute("isLogin", false);

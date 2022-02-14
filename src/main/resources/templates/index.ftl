@@ -20,10 +20,10 @@
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/inquiry'">查詢 Inquiry</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/draw'">取款 Draw Money</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/deposit'">存款 Deposit</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/save'">存款 Save Money</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/withdraw'">取款 Withdraw</button>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/transfer'">轉帳 Transfer</button>

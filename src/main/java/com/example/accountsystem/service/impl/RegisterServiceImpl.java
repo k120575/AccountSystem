@@ -31,6 +31,7 @@ public class RegisterServiceImpl implements RegisterService {
             newUser.setPassword(password);
             newUser.setCreateTime(LocalDateTime.now());
             userRepository.saveAndFlush(newUser);
+            log.info("Register success");
             return "login";
         }
     }

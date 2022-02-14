@@ -30,15 +30,17 @@
         <tr class="table-secondary">
             <th scope="col">Date</th>
             <th scope="col">Action</th>
+            <th scope="col">credits</th>
             <th scope="col">Balance</th>
         </tr>
         </thead>
         <tbody class="table-warning">
-        <#if accountDetails ? has_content>
+        <#if accountDetails?? && (accountDetails?size >0)>
             <#list accountDetails as account>
                 <tr>
-                    <td>${account.createTime}</td>
+                    <td>${account.createTime?datetime("yyyy-MM-dd'T'HH:mm:ss")?string("yyyy/MM/dd")}</td>
                     <td>${account.action}</td>
+                    <td>${account.credits}</td>
                     <td>${account.balance}</td>
                 </tr>
             </#list>
