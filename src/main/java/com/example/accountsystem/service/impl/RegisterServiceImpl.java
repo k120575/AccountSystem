@@ -1,7 +1,7 @@
 package com.example.accountsystem.service.impl;
 
-import com.example.accountsystem.entity.Member;
-import com.example.accountsystem.repository.MemberRepository;
+import com.example.accountsystem.entity.User;
+import com.example.accountsystem.repository.UserRepository;
 import com.example.accountsystem.service.RegisterService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,20 +17,20 @@ public class RegisterServiceImpl implements RegisterService {
     private Log log = LogFactory.getLog(RegisterServiceImpl.class);
 
     @Autowired
-    MemberRepository memberRepository;
+    UserRepository userRepository;
 
     @Override
     public String register(String name, String password) {
-        Member member = memberRepository.findByName(name);
-        if (Objects.nonNull(member)){
+        User user = userRepository.findByName(name);
+        if (Objects.nonNull(user)){
             log.info("Register false");
             return null;
         } else {
-            Member newMember = new Member();
-            newMember.setName(name);
-            newMember.setPassword(password);
-            newMember.setCreateTime(LocalDateTime.now());
-            memberRepository.saveAndFlush(newMember);
+            User newUser = new User();
+            newUser.setName(name);
+            newUser.setPassword(password);
+            newUser.setCreateTime(LocalDateTime.now());
+            userRepository.saveAndFlush(newUser);
             return "login";
         }
     }

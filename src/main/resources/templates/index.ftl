@@ -9,7 +9,7 @@
 <br>
 <tr>
     <#if isLogin>
-        <H5>HI ${member.name}</H5>
+        <H5>HI ${user.name}</H5>
     <#else>
         <H5>HI</H5>
     </#if>
@@ -17,16 +17,16 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
-                <button type="button" class="btn btn-primary p-3 border" onclick="location.href='/inquiry'">查詢 Inquiry</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/inquiry'">查詢 Inquiry</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary p-3 border" onclick="location.href='/draw'">取款 Draw Money</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/draw'">取款 Draw Money</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary p-3 border" onclick="location.href='/save'">存款 Save Money</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/save'">存款 Save Money</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary p-3 border" onclick="location.href='/transfer'">轉帳 Transfer</button>
+                <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/transfer'">轉帳 Transfer</button>
             </div>
         </div>
     </div>

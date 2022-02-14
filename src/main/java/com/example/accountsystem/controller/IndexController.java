@@ -1,6 +1,6 @@
 package com.example.accountsystem.controller;
 
-import com.example.accountsystem.entity.Member;
+import com.example.accountsystem.entity.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 @Controller
 public class IndexController {
@@ -17,12 +16,12 @@ public class IndexController {
 
     @GetMapping("/index")
     private String index(Model model, HttpServletRequest request){
-        Member member = new Member();
+        User user = new User();
         boolean isLogin = false;
         if (request.getSession().getAttribute("user") != null){
             String name = (String) request.getSession().getAttribute("user");
-            member.setName(name);
-            model.addAttribute("member", member);
+            user.setName(name);
+            model.addAttribute("user", user);
             model.addAttribute("isLogin", true);
         } else {
             model.addAttribute("isLogin", false);

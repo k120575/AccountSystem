@@ -1,7 +1,7 @@
 package com.example.accountsystem.service.impl;
 
-import com.example.accountsystem.entity.Member;
-import com.example.accountsystem.repository.MemberRepository;
+import com.example.accountsystem.entity.User;
+import com.example.accountsystem.repository.UserRepository;
 import com.example.accountsystem.service.LoginService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,12 +19,12 @@ public class LoginServiceImpl implements LoginService {
     private Log log = LogFactory.getLog(LoginServiceImpl.class);
 
     @Autowired
-    MemberRepository memberRepository;
+    UserRepository userRepository;
 
     @Override
     public String getLogin(String name, String password, HttpServletRequest req) {
-        Member member = memberRepository.findByNameAndPassword(name, password);
-        if (Objects.nonNull(member)){
+        User user = userRepository.findByNameAndPassword(name, password);
+        if (Objects.nonNull(user)){
             log.info("Login success");
             HttpSession session = req.getSession();
             session.setAttribute("user", name);
