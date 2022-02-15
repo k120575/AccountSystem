@@ -23,6 +23,9 @@ public class AccountDetail {
     @Column
     private int balance;
 
+    @Column
+    private String comment;
+
     @Column(name = "create_user")
     private String createUser;
 

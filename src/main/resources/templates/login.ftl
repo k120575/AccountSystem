@@ -35,12 +35,28 @@
                 </i>
             </button>
             <form action="/login" method="post">
-                <input class="btn btn-primary btn-block" type="submit" value="登入">
+                <input class="btn btn-primary btn-block" type="submit" value="登入" onclick="return check();">
             </form>
         </div>
     </form>
-</div>
+    <script type="text/javascript">
+        function check(){
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
 
+            if (name == ""){
+                alert("帳號不可空白");
+                return false;
+            }
+            if (password == ""){
+                alert("密碼不可空白");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>

@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface WithdrawService {
 
-    String withdraw(Integer credits, Model model, HttpServletRequest request);
+    String withdraw(Integer credits, String comment, Model model, HttpServletRequest request);
 }

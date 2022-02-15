@@ -30,8 +30,9 @@
         <tr class="table-secondary">
             <th scope="col">Date</th>
             <th scope="col">Action</th>
-            <th scope="col">credits</th>
+            <th scope="col">Credits</th>
             <th scope="col">Balance</th>
+            <th scope="col">Comment</th>
         </tr>
         </thead>
         <tbody class="table-warning">
@@ -42,6 +43,11 @@
                     <td>${account.action}</td>
                     <td>${account.credits}</td>
                     <td>${account.balance}</td>
+                    <#if account.comment??>
+                        <td>${account.comment}</td>
+                    <#else>
+                        <td></td>
+                    </#if>
                 </tr>
             </#list>
         </#if>

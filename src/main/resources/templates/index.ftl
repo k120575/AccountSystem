@@ -15,24 +15,24 @@
     </#if>
 </tr>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
+        <div class="row g-2">
+            <div class="col-6">
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/inquiry'">查詢 Inquiry</button>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/deposit'">存款 Deposit</button>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/withdraw'">取款 Withdraw</button>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <button type="button" class="btn btn-secondary p-3 border" onclick="location.href='/transfer'">轉帳 Transfer</button>
             </div>
         </div>
     </div>
 <br>
 <div class="container">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="align-content-center">
         <button type="button" class="btn btn-warning p-3 border" onclick="location.href='/login'">登入或註冊</button>
         <#if isLogin>
             <button type="button" class="btn btn-warning p-3 border" onclick="location.href='/logout'">登出</button>

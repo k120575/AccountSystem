@@ -1,5 +1,6 @@
 package com.example.accountsystem.controller;
 
+import com.example.accountsystem.enums.ErrorTypeEnum;
 import com.example.accountsystem.service.impl.DepositServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,13 +28,13 @@ public class DepositController {
             return "deposit";
         } else {
             model.addAttribute("isLogin", false);
-            log.info("no login");
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "index";
         }
     }
 
     @PostMapping("/deposit")
-    public String deposit(Integer credits, Model model, HttpServletRequest request){
-        return depositService.deposit(credits, model, request);
+    public String deposit(Integer credits, String comment, Model model, HttpServletRequest request){
+        return depositService.deposit(credits, comment, model, request);
     }
 }

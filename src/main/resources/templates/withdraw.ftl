@@ -14,6 +14,11 @@
             <input type="text" name="credits" id="credits" class="form-control" placeholder="輸入金額"
                    autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入欲取款金額"/>
         </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            <input type="text" name="comment" id="comment" class="form-control" placeholder="備註"
+                   autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入備註"/>
+        </div>
         <br>
         <form action="/withdraw" method="post">
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="取款" >

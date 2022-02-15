@@ -2,6 +2,8 @@ package com.example.accountsystem.service.impl;
 
 import com.example.accountsystem.entity.AccountDetail;
 import com.example.accountsystem.entity.User;
+import com.example.accountsystem.enums.ErrorTypeEnum;
+import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.AccountDetailRepository;
 import com.example.accountsystem.service.InquiryService;
 import org.apache.commons.logging.Log;
@@ -44,11 +46,11 @@ public class InquiryServiceImpl implements InquiryService {
                 model.addAttribute("hasData", false);
                 model.addAttribute("balance", 0);
             }
-            log.info("Inquiry success");
+            log.info(StatusEnum.INQUIRY_SUCCESS.getMsg());
             return "inquiry";
         } else {
             model.addAttribute("isLogin", false);
-            log.info("Inquiry false");
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "redirect:/index";
         }
     }

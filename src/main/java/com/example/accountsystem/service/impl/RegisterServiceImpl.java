@@ -1,6 +1,7 @@
 package com.example.accountsystem.service.impl;
 
 import com.example.accountsystem.entity.User;
+import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.UserRepository;
 import com.example.accountsystem.service.RegisterService;
 import org.apache.commons.logging.Log;
@@ -23,7 +24,7 @@ public class RegisterServiceImpl implements RegisterService {
     public String register(String name, String password) {
         User user = userRepository.findByName(name);
         if (Objects.nonNull(user)){
-            log.info("Register false");
+            log.info(StatusEnum.REGISTER_FALSE.getMsg());
             return null;
         } else {
             User newUser = new User();
@@ -31,8 +32,8 @@ public class RegisterServiceImpl implements RegisterService {
             newUser.setPassword(password);
             newUser.setCreateTime(LocalDateTime.now());
             userRepository.saveAndFlush(newUser);
-            log.info("Register success");
-            return "login";
+            log.info(StatusEnum.REGISTER_SUCCESS.getMsg());
+            return "redirect:/login";
         }
     }
 }

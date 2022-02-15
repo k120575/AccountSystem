@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface DepositService {
 
-    String deposit(Integer credits, Model model, HttpServletRequest request);
+    String deposit(Integer credits, String comment, Model model, HttpServletRequest request);
 }

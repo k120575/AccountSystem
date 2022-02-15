@@ -1,6 +1,9 @@
 package com.example.accountsystem.service.impl;
 
 import com.example.accountsystem.entity.User;
+import com.example.accountsystem.enums.ActionEnum;
+import com.example.accountsystem.enums.ErrorTypeEnum;
+import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.UserRepository;
 import com.example.accountsystem.service.LoginService;
 import org.apache.commons.logging.Log;
@@ -23,15 +26,23 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String getLogin(String name, String password, HttpServletRequest req) {
+        if (Objects.isNull(name)){
+            log.info(ErrorTypeEnum.NO_USER_NAME.getMsg());
+            return null;
+        }
+        if (Objects.isNull(password)){
+            log.info(ErrorTypeEnum.NO_PASSWORD.getMsg());
+            return null;
+        }
         User user = userRepository.findByNameAndPassword(name, password);
         if (Objects.nonNull(user)){
-            log.info("Login success");
             HttpSession session = req.getSession();
             session.setAttribute("user", name);
             String sessionId = session.getId();
+            log.info(StatusEnum.LOGIN_SUCCESS.getMsg());
             return "redirect:/index";
         } else {
-            log.info("Login false");
+            log.info(StatusEnum.LOGIN_FALSE.getMsg());
             return null;
         }
     }
@@ -40,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
     public String logout(HttpServletRequest req) throws ServletException {
         req.getSession().removeAttribute("user");
         req.logout();
-        log.info("Logout");
+        log.info(ActionEnum.LOGOUT.getMsg());
         return "redirect:/index";
     }
 }

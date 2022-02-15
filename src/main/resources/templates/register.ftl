@@ -26,32 +26,35 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="請再次輸入密碼"
-                       data-rule-required="true" />
+                       data-rule-required="true"/>
             </div>
-
+            <br>
             <form action="/register" method="post">
-                <input class="btn btn-primary btn-lg btn-block" type="submit" value="註冊" >
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="註冊" onclick="return check();">
             </form>
         </div>
     </form>
     <script type="text/javascript">
+
         function check(){
-            var name = document.getElementsByName('name');
-            var password = document.getElementById('password');
-            var password2 = document.getElementById('password2');
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+            const password2 = document.getElementById("password2").value;
 
-            // if (name == ''){
-            //     alert('名稱不可空白');
-            // }
-            // if (password == "" || password2 == ""){
-            //     alert("密碼不可空白");
-            // }
-            // if (password !== password2){
-            //     alert("兩次密碼不同");
-            //     return false;
-            // }
+            if (name == ""){
+                alert("帳號不可空白");
+                return false;
+            }
+            if (password == "" || password2 == ""){
+                alert("密碼不可空白");
+                return false;
+            }
+            if (password !== password2){
+                alert("兩次密碼不同");
+                return false;
+            }
+            return true;
         }
-
     </script>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>

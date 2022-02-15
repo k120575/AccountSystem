@@ -1,5 +1,6 @@
 package com.example.accountsystem.controller;
 
+import com.example.accountsystem.enums.ErrorTypeEnum;
 import com.example.accountsystem.service.impl.DepositServiceImpl;
 import com.example.accountsystem.service.impl.WithdrawServiceImpl;
 import org.apache.commons.logging.Log;
@@ -27,13 +28,13 @@ public class WithdrawController {
             return "withdraw";
         } else {
             model.addAttribute("isLogin", false);
-            log.info("no login");
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "index";
         }
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(Integer credits, Model model, HttpServletRequest request){
-        return withdrawService.withdraw(credits, model, request);
+    public String withdraw(Integer credits, String comment, Model model, HttpServletRequest request){
+        return withdrawService.withdraw(credits, comment, model, request);
     }
 }
