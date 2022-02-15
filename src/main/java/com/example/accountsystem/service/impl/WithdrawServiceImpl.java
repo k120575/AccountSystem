@@ -5,13 +5,13 @@ import com.example.accountsystem.enums.ActionEnum;
 import com.example.accountsystem.enums.ErrorTypeEnum;
 import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.AccountDetailRepository;
-import com.example.accountsystem.service.DepositService;
 import com.example.accountsystem.service.WithdrawService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -38,12 +38,24 @@ public class WithdrawServiceImpl implements WithdrawService {
             if (credits >= 0){
                 accountDetail.setCredits(credits);
             } else {
-                log.info(ErrorTypeEnum.AMOUNT_MUST_GREATER_THAN_ZERO.getMsg());
+                log.info(ErrorTypeEnum.CREDITS_MUST_GREATER_THAN_ZERO.getMsg());
                 return null;
             }
             String user = (String)request.getSession().getAttribute("user") ;
             int newBalance = 0;
             List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
+            // 判斷是否有資料
+            if (CollectionUtils.isEmpty(accountDetails)){
+                log.info(ErrorTypeEnum.BALANCE_NOT_ENOUGH.getMsg());
+                return null;
+            }
+
+            // 判斷餘額夠不夠
+            if (accountDetails.get(0).getBalance() < credits){
+                log.info(ErrorTypeEnum.BALANCE_NOT_ENOUGH.getMsg());
+                return null;
+            }
+            // 找出全部帳務資料，如果有資料且最新的餘額不為0，則將最新餘額扣掉取款金額
             if (accountDetails.size() != 0 && accountDetails.get(0).getBalance() != 0){
                 newBalance = accountDetails.get(0).getBalance() - credits;
                 accountDetail.setBalance(newBalance);

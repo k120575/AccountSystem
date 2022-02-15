@@ -37,11 +37,13 @@ public class DepositServiceImpl implements DepositService {
             if (credits >= 0){
                 accountDetail.setCredits(credits);
             } else {
-                log.info(ErrorTypeEnum.AMOUNT_MUST_GREATER_THAN_ZERO.getMsg());
+                log.info(ErrorTypeEnum.CREDITS_MUST_GREATER_THAN_ZERO.getMsg());
                 return null;
             }
             String user = (String)request.getSession().getAttribute("user") ;
+            // 餘額預設維0
             int newBalance = 0;
+            // 找出所有帳務資料，如果有資料就把輸入金額加上最新的餘額，沒資料就把輸入金額當最新的餘額
             List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
             if (accountDetails.size() != 0){
                 newBalance = credits + accountDetails.get(0).getBalance();

@@ -26,10 +26,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String getLogin(String name, String password, HttpServletRequest req) {
+        // 判斷帳號是否未輸入
         if (Objects.isNull(name)){
             log.info(ErrorTypeEnum.NO_USER_NAME.getMsg());
             return null;
         }
+        // 判斷密碼是否未輸入
         if (Objects.isNull(password)){
             log.info(ErrorTypeEnum.NO_PASSWORD.getMsg());
             return null;
@@ -37,6 +39,7 @@ public class LoginServiceImpl implements LoginService {
         User user = userRepository.findByNameAndPassword(name, password);
         if (Objects.nonNull(user)){
             HttpSession session = req.getSession();
+            // 把帳號加進session裡面
             session.setAttribute("user", name);
             String sessionId = session.getId();
             log.info(StatusEnum.LOGIN_SUCCESS.getMsg());

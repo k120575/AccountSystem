@@ -5,8 +5,11 @@ public enum ErrorTypeEnum {
     NOT_LOGIN(1, "尚未登入"),
     NO_USER_NAME(2, "使用者名稱尚未輸入"),
     NO_PASSWORD(3, "使用者密碼尚未輸入"),
-    AMOUNT_MUST_GREATER_THAN_ZERO(4, "金額需大於0"),
-    NO_MONEY(5, "尚未輸入金額");
+    CREDITS_MUST_GREATER_THAN_ZERO(4, "金額需大於0"),
+    NO_MONEY(5, "尚未輸入金額"),
+    NO_TRANSFER_FROM(6, "尚未輸入轉出帳號"),
+    NO_TRANSFER_TO(7, "尚未輸入轉入帳號"),
+    BALANCE_NOT_ENOUGH(8, "餘額不足");
 
     private int code;
     private String msg;

@@ -15,6 +15,8 @@ CREATE TABLE `account`.`account_detail` (
     `credits` INT NOT NULL,
     `balance` INT NOT NULL,
     `comment` VARCHAR(255) NULL,
+    `transfer_from` VARCHAR(45) NULL,
+    `transfer_to` VARCHAR(45) NULL,
     `create_user` VARCHAR(45) NOT NULL,
     `create_time` DATETIME NOT NULL,
     PRIMARY KEY (`id`))

@@ -4,7 +4,8 @@ public enum ActionEnum {
 
     DEPOSIT(1, "存款"),
     WITHDRAW(2, "取款"),
-    LOGOUT(3, "登出");
+    LOGOUT(3, "登出"),
+    TRANSFER(4, "轉帳");
 
     private int code;
     private String msg;

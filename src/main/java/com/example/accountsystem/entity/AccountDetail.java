@@ -26,6 +26,12 @@ public class AccountDetail {
     @Column
     private String comment;
 
+    @Column(name = "transfer_from")
+    private String transferFrom;
+
+    @Column(name = "transfer_to")
+    private String transferTo;
+
     @Column(name = "create_user")
     private String createUser;
 

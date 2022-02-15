@@ -32,6 +32,8 @@
             <th scope="col">Action</th>
             <th scope="col">Credits</th>
             <th scope="col">Balance</th>
+            <th scope="col">Transfer From</th>
+            <th scope="col">Transfer To</th>
             <th scope="col">Comment</th>
         </tr>
         </thead>
@@ -43,6 +45,16 @@
                     <td>${account.action}</td>
                     <td>${account.credits}</td>
                     <td>${account.balance}</td>
+                    <#if account.transferFrom??>
+                        <td>${account.transferFrom}</td>
+                    <#else>
+                        <td></td>
+                    </#if>
+                    <#if account.transferTo??>
+                        <td>${account.transferTo}</td>
+                    <#else>
+                        <td></td>
+                    </#if>
                     <#if account.comment??>
                         <td>${account.comment}</td>
                     <#else>
