@@ -12,7 +12,7 @@
         <thead>
             <tr class="table-dark">
                 <th scope="col">Name</th>
-                <th scope="col">balance</th>
+                <th scope="col">Current balance</th>
                 <th scope="col">Current Time</th>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
     <br>
     <table class="table table-striped table-hover" id="inquiry" name="inquiry" action="/inquiry" method="get">
         <thead>
-        <tr class="table-secondary">
+        <tr class="table-dark">
             <th scope="col">Date</th>
             <th scope="col">Action</th>
             <th scope="col">Credits</th>
@@ -37,11 +37,11 @@
             <th scope="col">Comment</th>
         </tr>
         </thead>
-        <tbody class="table-warning">
+        <tbody class="table-primary">
         <#if accountDetails?? && (accountDetails?size >0)>
             <#list accountDetails as account>
                 <tr>
-                    <td>${account.createTime?datetime("yyyy-MM-dd'T'HH:mm:ss")?string("yyyy/MM/dd")}</td>
+                    <td>${account.createTime?datetime("yyyy-MM-dd'T'HH:mm:ss")?string("yyyy/MM/dd HH:mm:ss")}</td>
                     <td>${account.action}</td>
                     <td>${account.credits}</td>
                     <td>${account.balance}</td>
