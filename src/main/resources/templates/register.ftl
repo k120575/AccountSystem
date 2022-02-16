@@ -12,19 +12,19 @@
         <div class="login-wrap">
 
             <div class="input-group">
-                <span class="input-group-addon"><i class="icon_profile"></i></span>
+                <span class="input-group-text">登入帳號</span>
                 <input type="text" name="name" id="name" class="form-control" placeholder="登入帳號"
                        autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入欲設定帳號"/>
             </div>
-
+            <br>
             <div class="input-group">
-                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <span class="input-group-text">登入密碼</span>
                 <input type="password" name="password" id="password" class="form-control" placeholder="請輸入密碼"
                        data-rule-required="true" />
             </div>
-
+            <br>
             <div class="input-group">
-                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <span class="input-group-text">再次輸入密碼</span>
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="請再次輸入密碼"
                        data-rule-required="true"/>
             </div>
@@ -37,9 +37,9 @@
     <script type="text/javascript">
 
         function check(){
-            const name = document.getElementById("name").value;
-            const password = document.getElementById("password").value;
-            const password2 = document.getElementById("password2").value;
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
 
             if (name == ""){
                 alert("帳號不可空白");

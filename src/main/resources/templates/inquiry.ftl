@@ -19,7 +19,7 @@
         <tbody class="table-secondary">
             <tr>
                 <td>${user.name}</td>
-                <td>${balance}</td>
+                <td>$${balance}</td>
                 <td>${currentTime}</td>
             </tr>
         </tbody>
@@ -27,7 +27,7 @@
     <br>
     <table class="table table-striped table-hover" id="inquiry" name="inquiry" action="/inquiry" method="get">
         <thead>
-        <tr class="table-dark">
+        <tr class="table-bordered">
             <th scope="col">Date</th>
             <th scope="col">Action</th>
             <th scope="col">Credits</th>
@@ -37,14 +37,14 @@
             <th scope="col">Comment</th>
         </tr>
         </thead>
-        <tbody class="table-primary">
+        <tbody class="table-light">
         <#if accountDetails?? && (accountDetails?size >0)>
             <#list accountDetails as account>
                 <tr>
                     <td>${account.createTime?datetime("yyyy-MM-dd'T'HH:mm:ss")?string("yyyy/MM/dd HH:mm:ss")}</td>
                     <td>${account.action}</td>
-                    <td>${account.credits}</td>
-                    <td>${account.balance}</td>
+                    <td>$${account.credits}</td>
+                    <td>$${account.balance}</td>
                     <#if account.transferFrom??>
                         <td>${account.transferFrom}</td>
                     <#else>

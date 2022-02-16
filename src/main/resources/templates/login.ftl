@@ -10,21 +10,18 @@
 <div class="container">
     <form id="login" name="login" action="/login" method="post">
         <div class="form-group">
-            <div class="input-icon">
-                <i class="icon-user">
-                </i>
+            <div class="input-group">
+                <span class="input-group-text">登入帳號</span>
                 <input type="text" name="name" id="name" class="form-control" placeholder="帳號"
-                       autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入帳號。"
-                />
+                       autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入帳號。"/>
             </div>
         </div>
+        <br>
         <div class="form-group">
-            <div class="input-icon">
-                <i class="icon-lock">
-                </i>
+            <div class="input-group">
+                <span class="input-group-text">登入密碼</span>
                 <input type="password" name="password" id="password" class="form-control" placeholder="密碼"
-                       data-rule-required="true" data-msg-required="請輸入密碼。"
-                />
+                       data-rule-required="true" data-msg-required="請輸入密碼。"/>
             </div>
         </div>
         <br>
@@ -40,9 +37,10 @@
         </div>
     </form>
     <script type="text/javascript">
+
         function check(){
-            const name = document.getElementById("name").value;
-            const password = document.getElementById("password").value;
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
 
             if (name == ""){
                 alert("帳號不可空白");
