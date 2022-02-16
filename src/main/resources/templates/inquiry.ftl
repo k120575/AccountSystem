@@ -92,8 +92,6 @@
         } else if (startDate == "" && endDate !== ""){
             alert("請輸入開始時間");
             return false;
-        } else if (startDate == "" && endDate == ""){
-            return false;
         }
         return true;
     }

@@ -76,21 +76,29 @@ public class InquiryServiceImpl implements InquiryService {
             model.addAttribute("user", user);
             model.addAttribute("isLogin", true);
             model.addAttribute("currentTime", dtf.format(LocalDateTime.now()));
-            if (Objects.nonNull(startDate) && Objects.nonNull(endDate)){
+            if (!Objects.equals(startDate, "") && !Objects.equals(endDate, "")){
                 List<AccountDetail> accountDetails = accountDetailRepository.findByCreateTimeBetweenOrderByCreateTimeDesc(
                         LocalDateTime.parse(startDate + " 00:00:00", dtf2), LocalDateTime.parse(endDate + " 23:59:59", dtf2));
-                if (CollectionUtils.isEmpty(accountDetails)){
-                    log.info(ErrorTypeEnum.NO_DATA.getMsg());
-                    model.addAttribute("hasData", false);
-                    model.addAttribute("balance", 0);
-                } else {
-                    model.addAttribute("hasData", true);
-                    model.addAttribute("balance", accountDetails.get(0).getBalance());
-                    model.addAttribute("accountDetails", accountDetails);
-                }
-                log.info(StatusEnum.SEARCH_SUCCESS.getMsg());
+                setModel(model, accountDetails);
+            }
+            if (Objects.equals(startDate, "") && Objects.equals(endDate, "")){
+                List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(name);
+                setModel(model, accountDetails);
             }
         }
         return "inquiry";
+    }
+
+    private void setModel(Model model, List<AccountDetail> accountDetails) {
+        if (CollectionUtils.isEmpty(accountDetails)){
+            log.info(ErrorTypeEnum.NO_DATA.getMsg());
+            model.addAttribute("hasData", false);
+            model.addAttribute("balance", 0);
+        } else {
+            model.addAttribute("hasData", true);
+            model.addAttribute("balance", accountDetails.get(0).getBalance());
+            model.addAttribute("accountDetails", accountDetails);
+            log.info(StatusEnum.SEARCH_SUCCESS.getMsg());
+        }
     }
 }
