@@ -25,6 +25,20 @@
         </tbody>
     </table>
     <br>
+    <div class="container">
+        <form id="search" name="search" action="/search" method="post">
+            <div class="input-group input-group-sm justify-content-end">
+                <span class="input-group-text">開始日期</span>
+                <input type="date" class="date-picker" name="startDate" id="startDate">
+                <span class="input-group-text">結束日期</span>
+                <input type="date" class="date-picker" name="endDate" id="endDate">
+                <form action="/search" method="post">
+                    <input class="btn btn-primary btn-sm btn-block" type="submit" value="搜尋" onclick="return check();">
+                </form>
+            </div>
+        </form>
+    </div>
+    <br>
     <table class="table table-striped table-hover" id="inquiry" name="inquiry" action="/inquiry" method="get">
         <thead>
         <tr class="table-bordered">
@@ -66,7 +80,24 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
 
+    function check() {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+
+        if (startDate !== "" && endDate == ""){
+            alert("請輸入結束時間");
+            return false;
+        } else if (startDate == "" && endDate !== ""){
+            alert("請輸入開始時間");
+            return false;
+        } else if (startDate == "" && endDate == ""){
+            return false;
+        }
+        return true;
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>

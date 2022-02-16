@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -53,5 +54,43 @@ public class InquiryServiceImpl implements InquiryService {
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "redirect:/index";
         }
+    }
+
+    @Override
+    public String doSearch(String startDate, String endDate, Model model, HttpServletRequest req) {
+        User user = new User();
+        if (req.getSession().getAttribute("user") != null){
+            if (Objects.nonNull(startDate) && Objects.isNull(endDate)){
+                log.info(ErrorTypeEnum.NO_END_DATE.getMsg());
+                return null;
+            }
+            if (Objects.isNull(startDate) && Objects.nonNull(endDate)){
+                log.info(ErrorTypeEnum.NO_START_DATE.getMsg());
+                return null;
+            }
+
+            String name = (String)req.getSession().getAttribute("user");
+            user.setName(name);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            model.addAttribute("user", user);
+            model.addAttribute("isLogin", true);
+            model.addAttribute("currentTime", dtf.format(LocalDateTime.now()));
+            if (Objects.nonNull(startDate) && Objects.nonNull(endDate)){
+                List<AccountDetail> accountDetails = accountDetailRepository.findByCreateTimeBetweenOrderByCreateTimeDesc(
+                        LocalDateTime.parse(startDate + " 00:00:00", dtf2), LocalDateTime.parse(endDate + " 23:59:59", dtf2));
+                if (CollectionUtils.isEmpty(accountDetails)){
+                    log.info(ErrorTypeEnum.NO_DATA.getMsg());
+                    model.addAttribute("hasData", false);
+                    model.addAttribute("balance", 0);
+                } else {
+                    model.addAttribute("hasData", true);
+                    model.addAttribute("balance", accountDetails.get(0).getBalance());
+                    model.addAttribute("accountDetails", accountDetails);
+                }
+                log.info(StatusEnum.SEARCH_SUCCESS.getMsg());
+            }
+        }
+        return "inquiry";
     }
 }

@@ -13,7 +13,9 @@ public enum StatusEnum {
     INQUIRY_SUCCESS(9, "查詢成功"),
     INQUIRY_FALSE(10, "查詢失敗"),
     TRANSFER_SUCCESS(11, "轉帳成功"),
-    TRANSFER_FALSE(12, "轉帳失敗");
+    TRANSFER_FALSE(12, "轉帳失敗"),
+    SEARCH_SUCCESS(13, "搜尋成功"),
+    SEARCH_FALSE(14, "搜尋失敗");
 
     private int code;
     private String msg;

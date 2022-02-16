@@ -9,7 +9,10 @@ public enum ErrorTypeEnum {
     NO_MONEY(5, "尚未輸入金額"),
     NO_TRANSFER_FROM(6, "尚未輸入轉出帳號"),
     NO_TRANSFER_TO(7, "尚未輸入轉入帳號"),
-    BALANCE_NOT_ENOUGH(8, "餘額不足");
+    BALANCE_NOT_ENOUGH(8, "餘額不足"),
+    NO_START_DATE(9, "尚未輸入開始時間"),
+    NO_END_DATE(10, "尚未輸入結束時間"),
+    NO_DATA(10, "查無資料");
 
     private int code;
     private String msg;
