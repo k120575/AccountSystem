@@ -23,7 +23,7 @@
         <br>
         <div class="input-group">
             <span class="input-group-text">轉出金額</span>
-            <input type="text" name="credits" id="credits" class="form-control" placeholder="輸入金額"
+            <input type="text" name="credits" id="credits" class="form-control" placeholder="輸入轉出金額"
                    autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入欲轉出金額"/>
         </div>
         <br>
