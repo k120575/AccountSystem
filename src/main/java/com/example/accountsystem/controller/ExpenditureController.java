@@ -33,7 +33,7 @@ public class ExpenditureController {
     }
 
     @PostMapping("/expenditure")
-    public String expenditure(Integer credits, String comment, Model model, HttpServletRequest request){
-        return expenditureService.expenditure(credits, comment, model, request);
+    public String expenditure(Integer credits, String expenditureType, String comment, Model model, HttpServletRequest request){
+        return expenditureService.expenditure(credits, expenditureType, comment, model, request);
     }
 }

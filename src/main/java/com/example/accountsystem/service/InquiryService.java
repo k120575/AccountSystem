@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public interface InquiryService {
 
-    public String getInquiry(Model model, HttpServletRequest req);
+    public String getInquiry(Integer page, Integer size, Model model, HttpServletRequest req);
 
-    public String doSearch(String startDate, String endDate, Model model, HttpServletRequest req);
+    public String doSearch(String startDate, String endDate, Integer page, Integer size, Model model, HttpServletRequest req);
 }

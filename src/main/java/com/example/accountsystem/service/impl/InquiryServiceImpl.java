@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class InquiryServiceImpl implements InquiryService {
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String getInquiry(Model model, HttpServletRequest req) {
+    public String getInquiry(Integer page, Integer size, Model model, HttpServletRequest req) {
         User user = new User();
         if (req.getSession().getAttribute("user") != null){
             String name = (String)req.getSession().getAttribute("user");
@@ -39,13 +40,29 @@ public class InquiryServiceImpl implements InquiryService {
             model.addAttribute("user", user);
             model.addAttribute("isLogin", true);
             model.addAttribute("currentTime", dtf.format(LocalDateTime.now()));
+
             if (accountDetails.size() != 0){
+                int start = (page - 1) * size;
+                int end = page * size;
+                int totalPage = (accountDetails.size() / size) + 1;
+                List<AccountDetail> accountDetailSubList = new ArrayList<>();
+                if (end <= accountDetails.size()){
+                    accountDetailSubList = accountDetails.subList(start, end);
+                } else {
+                    accountDetailSubList = accountDetails.subList(start, accountDetails.size());
+                }
                 model.addAttribute("hasData", true);
                 model.addAttribute("balance", accountDetails.get(0).getBalance());
-                model.addAttribute("accountDetails", accountDetails);
+                model.addAttribute("currentPage", page);
+                model.addAttribute("totalPage", totalPage);
+                model.addAttribute("size", size);
+                model.addAttribute("accountDetails", accountDetailSubList);
             } else {
                 model.addAttribute("hasData", false);
                 model.addAttribute("balance", 0);
+                model.addAttribute("currentPage", page);
+                model.addAttribute("totalPage", 1);
+                model.addAttribute("size", size);
             }
             log.info(StatusEnum.INQUIRY_SUCCESS.getMsg());
             return "inquiry";
@@ -57,7 +74,7 @@ public class InquiryServiceImpl implements InquiryService {
     }
 
     @Override
-    public String doSearch(String startDate, String endDate, Model model, HttpServletRequest req) {
+    public String doSearch(String startDate, String endDate, Integer page, Integer size, Model model, HttpServletRequest req) {
         User user = new User();
         if (req.getSession().getAttribute("user") != null){
             if (Objects.nonNull(startDate) && Objects.isNull(endDate)){
@@ -79,25 +96,39 @@ public class InquiryServiceImpl implements InquiryService {
             if (!Objects.equals(startDate, "") && !Objects.equals(endDate, "")){
                 List<AccountDetail> accountDetails = accountDetailRepository.findByCreateTimeBetweenOrderByCreateTimeDesc(
                         LocalDateTime.parse(startDate + " 00:00:00", dtf2), LocalDateTime.parse(endDate + " 23:59:59", dtf2));
-                setModel(model, accountDetails);
+                setModel(page, size, model, accountDetails);
             }
             if (Objects.equals(startDate, "") && Objects.equals(endDate, "")){
-                List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(name);
-                setModel(model, accountDetails);
+                getInquiry(page, size, model, req);
             }
         }
         return "inquiry";
     }
 
-    private void setModel(Model model, List<AccountDetail> accountDetails) {
+    private void setModel(Integer page, Integer size, Model model, List<AccountDetail> accountDetails) {
         if (CollectionUtils.isEmpty(accountDetails)){
             log.info(ErrorTypeEnum.NO_DATA.getMsg());
             model.addAttribute("hasData", false);
             model.addAttribute("balance", 0);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPage", 1);
+            model.addAttribute("size", size);
         } else {
+            int start = (page - 1) * size;
+            int end = page * size;
+            int totalPage = (int)(accountDetails.size() / size) + 1;
+            List<AccountDetail> accountDetailSubList = new ArrayList<>();
+            if (end <= accountDetails.size()){
+                accountDetailSubList = accountDetails.subList(start, end);
+            } else {
+                accountDetailSubList = accountDetails.subList(start, accountDetails.size());
+            }
             model.addAttribute("hasData", true);
             model.addAttribute("balance", accountDetails.get(0).getBalance());
-            model.addAttribute("accountDetails", accountDetails);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPage", totalPage);
+            model.addAttribute("size", size);
+            model.addAttribute("accountDetails", accountDetailSubList);
             log.info(StatusEnum.SEARCH_SUCCESS.getMsg());
         }
     }

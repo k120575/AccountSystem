@@ -18,6 +18,25 @@
         </div>
         <br>
         <div class="input-group">
+            <span class="input-group-text">支出類型</span>
+            <select class="form-select" id="expenditureType" name="expenditureType" aria-label="Default select example">
+                <option value="" selected>請選擇</option>
+                <option value="飲食">飲食</option>
+                <option value="居家">居家</option>
+                <option value="交通">交通</option>
+                <option value="電話網路">電話網路</option>
+                <option value="信用卡">信用卡</option>
+                <option value="運動">運動</option>
+                <option value="學習">學習</option>
+                <option value="服飾">服飾</option>
+                <option value="娛樂">娛樂</option>
+                <option value="醫療">醫療</option>
+                <option value="保險">保險</option>
+                <option value="其他">其他</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-group">
             <span class="input-group-text">備註</span>
             <input type="text" name="comment" id="comment" class="form-control" placeholder="備註"
                    autofocus="autofocus" data-rule-required="true" data-msg-required="請輸入備註"/>
@@ -32,8 +51,13 @@
 
     function check() {
         var credits = document.getElementById("credits").value;
+        var expenditureType = document.getElementById("expenditureType").value;
+
         if (credits == ""){
             alert("請輸入金額");
+            return false;
+        } else if (expenditureType == ""){
+            alert("請選擇支出類型");
             return false;
         }
         return true;

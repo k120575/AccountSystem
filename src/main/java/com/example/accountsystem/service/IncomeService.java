@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface IncomeService {
 
-    String income(Integer credits, String comment, Model model, HttpServletRequest request);
+    String income(Integer credits, String incomeType, String comment, Model model, HttpServletRequest request);
 }

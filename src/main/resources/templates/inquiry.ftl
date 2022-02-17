@@ -26,19 +26,45 @@
     </table>
     <br>
     <div class="container">
-        <form id="search" name="search" action="/search" method="post">
-            <div class="input-group input-group-sm justify-content-end">
-                <span class="input-group-text">開始日期</span>
-                <input type="date" class="date-picker" name="startDate" id="startDate">
-                <span class="input-group-text">結束日期</span>
-                <input type="date" class="date-picker" name="endDate" id="endDate">
-                <form action="/search" method="post">
-                    <input class="btn btn-primary btn-sm btn-block" type="submit" value="搜尋" onclick="return check();">
+        <div class="row align-items-start">
+            <div class="col-6">
+                <form id="search" name="search" action="/search" method="post">
+                    <div class="input-group input-group-sm justify-content-start">
+                        <span class="input-group-text">開始日期</span>
+                        <input type="date" class="date-picker" name="startDate" id="startDate">
+                        &nbsp;
+                        <span class="input-group-text">結束日期</span>
+                        <input type="date" class="date-picker" name="endDate" id="endDate">
+                        &nbsp;
+                        <form action="/search" method="post">
+                            <input class="btn btn-primary btn-sm btn-block" type="submit" value="搜尋" onclick="return check();">
+                        </form>
+                    </div>
                 </form>
             </div>
-        </form>
+            <div class="col"></div>
+            <div class="col">
+                <div class="col">
+                    <div class="input-group input-group-sm justify-content-end">
+                        <span class="input-group-text">每頁顯示幾筆</span>
+                        <select class="form-select form-control" id="size" name="size" onchange="location = '/inquiry?page=1&size='+this.options[this.selectedIndex].value;">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='/index'">回首頁</button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
     <br>
+<div class="container">
     <table class="table table-striped table-hover" id="inquiry" name="inquiry" action="/inquiry" method="get">
         <thead>
         <tr class="table-bordered">
@@ -46,6 +72,8 @@
             <th scope="col">Action</th>
             <th scope="col">Credits</th>
             <th scope="col">Balance</th>
+            <th scope="col">Income Type</th>
+            <th scope="col">Expenditure Type</th>
             <th scope="col">Transfer From</th>
             <th scope="col">Transfer To</th>
             <th scope="col">Comment</th>
@@ -59,6 +87,16 @@
                     <td>${account.action}</td>
                     <td>$${account.credits}</td>
                     <td>$${account.balance}</td>
+                    <#if account.incomeType??>
+                        <td>${account.incomeType}</td>
+                    <#else>
+                        <td></td>
+                    </#if>
+                    <#if account.expenditureType??>
+                        <td>${account.expenditureType}</td>
+                    <#else>
+                        <td></td>
+                    </#if>
                     <#if account.transferFrom??>
                         <td>${account.transferFrom}</td>
                     <#else>
@@ -80,6 +118,41 @@
         </tbody>
     </table>
 </div>
+<footer class="navbar-fixed-bottom">
+    <div class="container">
+        <div class="col-md-12 column d-flex justify-content-center">
+            <ul class="pagination ">
+                <#if currentPage lte 1>
+                    <li class="disabled "><a class="page-link" href="#">上一頁</a></li>
+                <#else>
+                    <li>
+                        <a class="page-link" href="/inquiry?page=${currentPage -
+                        1}&size=${size}">上一頁</a>
+                    </li>
+                </#if>
+                <#list 1..totalPage as index>
+                    <#if currentPage == index>
+                        <li class="page-item active "><a class="page-link" href="#">${index}</a>
+                        </li>
+                    <#else>
+                        <li>
+                            <a class="page-link" href="/inquiry?page=${index}&size=${size}">
+                                ${index}</a>
+                        </li>
+                    </#if>
+                </#list>
+                <#if currentPage gte totalPage>
+                    <li class="disabled "><a class="page-link" href="#">下一頁</a></li>
+                <#else>
+                    <li>
+                        <a class="page-link" href="/inquiry?page=${currentPage + 1}&size=${size}">下一頁</a>
+                    </li>
+                </#if>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 <script type="text/javascript">
 
     function check() {

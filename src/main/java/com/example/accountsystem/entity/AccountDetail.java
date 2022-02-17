@@ -23,14 +23,20 @@ public class AccountDetail {
     @Column
     private int balance;
 
-    @Column
-    private String comment;
+    @Column(name = "income_type")
+    private String incomeType;
+
+    @Column(name = "expenditure_type")
+    private String expenditureType;
 
     @Column(name = "transfer_from")
     private String transferFrom;
 
     @Column(name = "transfer_to")
     private String transferTo;
+
+    @Column
+    private String comment;
 
     @Column(name = "create_user")
     private String createUser;

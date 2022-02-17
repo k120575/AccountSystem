@@ -14,9 +14,11 @@ CREATE TABLE `account`.`account_detail` (
     `action` VARCHAR(45) NOT NULL,
     `credits` INT NOT NULL,
     `balance` INT NOT NULL,
-    `comment` VARCHAR(255) NULL,
+    `income_type` VARCHAR(45) NULL,
+    `expenditure_type` VARCHAR(45) NULL,
     `transfer_from` VARCHAR(45) NULL,
     `transfer_to` VARCHAR(45) NULL,
+    `comment` VARCHAR(255) NULL,
     `create_user` VARCHAR(45) NOT NULL,
     `create_time` DATETIME NOT NULL,
     PRIMARY KEY (`id`))

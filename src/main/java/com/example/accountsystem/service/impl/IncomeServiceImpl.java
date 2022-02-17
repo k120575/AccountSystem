@@ -26,7 +26,7 @@ public class IncomeServiceImpl implements IncomeService {
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String income(Integer credits, String comment, Model model, HttpServletRequest request) {
+    public String income(Integer credits, String incomeType, String comment, Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null){
             AccountDetail accountDetail = new AccountDetail();
             accountDetail.setAction(ActionEnum.INCOME.getMsg());
@@ -51,6 +51,7 @@ public class IncomeServiceImpl implements IncomeService {
                 newBalance = credits;
             }
             accountDetail.setBalance(newBalance);
+            accountDetail.setIncomeType(incomeType);
             if (Objects.nonNull(comment)){
                 accountDetail.setComment(comment);
             }

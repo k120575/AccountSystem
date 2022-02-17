@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface ExpenditureService {
 
-    String expenditure(Integer credits, String comment, Model model, HttpServletRequest request);
+    String expenditure(Integer credits, String expenditureType, String comment, Model model, HttpServletRequest request);
 }

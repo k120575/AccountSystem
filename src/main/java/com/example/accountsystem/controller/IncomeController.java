@@ -33,7 +33,7 @@ public class IncomeController {
     }
 
     @PostMapping("/income")
-    public String income(Integer credits, String comment, Model model, HttpServletRequest request){
-        return incomeService.income(credits, comment, model, request);
+    public String income(Integer credits, String incomeType, String comment, Model model, HttpServletRequest request){
+        return incomeService.income(credits, incomeType, comment, model, request);
     }
 }

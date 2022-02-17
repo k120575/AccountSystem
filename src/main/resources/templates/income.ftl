@@ -19,11 +19,13 @@
         <br>
         <div class="input-group">
             <span class="input-group-text">收入類型</span>
-            <select class="form-select" id="" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select class="form-select form-control" id="incomeType" name="incomeType">
+                <option  value="" selected>請選擇</option>
+                <option value="工資">工資</option>
+                <option value="獎金">獎金</option>
+                <option value="投資">投資</option>
+                <option value="利息">利息</option>
+                <option value="其他">其他</option>
             </select>
         </div>
         <br>
@@ -42,8 +44,13 @@
 
     function check() {
         var credits = document.getElementById("credits").value;
+        var incomeType = document.getElementById("incomeType").value;
+
         if (credits == ""){
             alert("請輸入金額");
+            return false;
+        } else if (incomeType == ""){
+            alert("請選擇收入類型");
             return false;
         }
         return true;

@@ -27,7 +27,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String expenditure(Integer credits, String comment, Model model, HttpServletRequest request) {
+    public String expenditure(Integer credits, String expenditureType, String comment, Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null){
             AccountDetail accountDetail = new AccountDetail();
             accountDetail.setAction(ActionEnum.EXPENDITURE.getMsg());
@@ -59,6 +59,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
             if (accountDetails.size() != 0 && accountDetails.get(0).getBalance() != 0){
                 newBalance = accountDetails.get(0).getBalance() - credits;
                 accountDetail.setBalance(newBalance);
+                accountDetail.setExpenditureType(expenditureType);
                 if (Objects.nonNull(comment)){
                     accountDetail.setComment(comment);
                 }
