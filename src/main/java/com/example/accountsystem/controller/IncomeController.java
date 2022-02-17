@@ -1,8 +1,7 @@
 package com.example.accountsystem.controller;
 
 import com.example.accountsystem.enums.ErrorTypeEnum;
-import com.example.accountsystem.service.impl.DepositServiceImpl;
-import com.example.accountsystem.service.impl.WithdrawServiceImpl;
+import com.example.accountsystem.service.impl.IncomeServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class WithdrawController {
+public class IncomeController {
 
-    private Log log = LogFactory.getLog(WithdrawController.class);
+    private Log log = LogFactory.getLog(IncomeController.class);
 
     @Autowired
-    WithdrawServiceImpl withdrawService;
+    IncomeServiceImpl incomeService;
 
-    @GetMapping("/withdraw")
-    public String withdraw(Model model, HttpServletRequest request){
+    @GetMapping("/income")
+    public String income(Model model, HttpServletRequest request){
         if (request.getSession().getAttribute("user") != null){
             model.addAttribute("isLogin", true);
-            return "withdraw";
+            return "income";
         } else {
             model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
@@ -33,8 +32,8 @@ public class WithdrawController {
         }
     }
 
-    @PostMapping("/withdraw")
-    public String withdraw(Integer credits, String comment, Model model, HttpServletRequest request){
-        return withdrawService.withdraw(credits, comment, model, request);
+    @PostMapping("/income")
+    public String income(Integer credits, String comment, Model model, HttpServletRequest request){
+        return incomeService.income(credits, comment, model, request);
     }
 }

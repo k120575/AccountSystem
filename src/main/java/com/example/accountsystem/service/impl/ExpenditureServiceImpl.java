@@ -5,7 +5,7 @@ import com.example.accountsystem.enums.ActionEnum;
 import com.example.accountsystem.enums.ErrorTypeEnum;
 import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.AccountDetailRepository;
-import com.example.accountsystem.service.WithdrawService;
+import com.example.accountsystem.service.ExpenditureService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,18 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class WithdrawServiceImpl implements WithdrawService {
+public class ExpenditureServiceImpl implements ExpenditureService {
 
-    private Log log = LogFactory.getLog(WithdrawServiceImpl.class);
+    private Log log = LogFactory.getLog(ExpenditureServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String withdraw(Integer credits, String comment, Model model, HttpServletRequest request) {
+    public String expenditure(Integer credits, String comment, Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null){
             AccountDetail accountDetail = new AccountDetail();
-            accountDetail.setAction(ActionEnum.WITHDRAW.getMsg());
+            accountDetail.setAction(ActionEnum.EXPENDITURE.getMsg());
             if (Objects.isNull(credits)){
                 log.info(ErrorTypeEnum.NO_MONEY.getMsg());
                 return null;
@@ -55,7 +55,7 @@ public class WithdrawServiceImpl implements WithdrawService {
                 log.info(ErrorTypeEnum.BALANCE_NOT_ENOUGH.getMsg());
                 return null;
             }
-            // 找出全部帳務資料，如果有資料且最新的餘額不為0，則將最新餘額扣掉取款金額
+            // 找出全部帳務資料，如果有資料且最新的餘額不為0，則將最新餘額扣掉支出金額
             if (accountDetails.size() != 0 && accountDetails.get(0).getBalance() != 0){
                 newBalance = accountDetails.get(0).getBalance() - credits;
                 accountDetail.setBalance(newBalance);
@@ -67,7 +67,7 @@ public class WithdrawServiceImpl implements WithdrawService {
                 accountDetailRepository.saveAndFlush(accountDetail);
                 model.addAttribute("user", user);
                 model.addAttribute("isLogin", true);
-                log.info(StatusEnum.WITHDRAW_SUCCESS.getMsg());
+                log.info(StatusEnum.EXPENDITURE_SUCCESS.getMsg());
             } else {
                 log.info(ErrorTypeEnum.NO_MONEY.getMsg());
                 return null;

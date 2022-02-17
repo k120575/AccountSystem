@@ -5,7 +5,7 @@ import com.example.accountsystem.enums.ActionEnum;
 import com.example.accountsystem.enums.ErrorTypeEnum;
 import com.example.accountsystem.enums.StatusEnum;
 import com.example.accountsystem.repository.AccountDetailRepository;
-import com.example.accountsystem.service.DepositService;
+import com.example.accountsystem.service.IncomeService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class DepositServiceImpl implements DepositService {
+public class IncomeServiceImpl implements IncomeService {
 
-    private Log log = LogFactory.getLog(DepositServiceImpl.class);
+    private Log log = LogFactory.getLog(IncomeServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;
 
     @Override
-    public String deposit(Integer credits, String comment, Model model, HttpServletRequest request) {
+    public String income(Integer credits, String comment, Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("user") != null){
             AccountDetail accountDetail = new AccountDetail();
-            accountDetail.setAction(ActionEnum.DEPOSIT.getMsg());
+            accountDetail.setAction(ActionEnum.INCOME.getMsg());
             if (Objects.isNull(credits)){
                 log.info(ErrorTypeEnum.NO_MONEY.getMsg());
                 return null;
@@ -59,7 +59,7 @@ public class DepositServiceImpl implements DepositService {
             accountDetailRepository.saveAndFlush(accountDetail);
             model.addAttribute("user", user);
             model.addAttribute("isLogin", true);
-            log.info(StatusEnum.DEPOSIT_SUCCESS.getMsg());
+            log.info(StatusEnum.INCOME_SUCCESS.getMsg());
         }
         return "redirect:/index";
     }

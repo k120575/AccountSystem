@@ -2,8 +2,8 @@ package com.example.accountsystem.enums;
 
 public enum ActionEnum {
 
-    DEPOSIT(1, "存款"),
-    WITHDRAW(2, "取款"),
+    INCOME(1, "收入"),
+    EXPENDITURE(2, "支出"),
     LOGOUT(3, "登出"),
     TRANSFER(4, "轉帳");
 

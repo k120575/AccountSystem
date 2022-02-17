@@ -4,7 +4,7 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface DepositService {
+public interface IncomeService {
 
-    String deposit(Integer credits, String comment, Model model, HttpServletRequest request);
+    String income(Integer credits, String comment, Model model, HttpServletRequest request);
 }

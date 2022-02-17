@@ -1,7 +1,6 @@
 package com.example.accountsystem.controller;
 
 import com.example.accountsystem.enums.ErrorTypeEnum;
-import com.example.accountsystem.service.impl.DepositServiceImpl;
 import com.example.accountsystem.service.impl.TransferServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
