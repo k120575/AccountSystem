@@ -57,11 +57,11 @@ public class TransferServiceImpl implements TransferService {
             List<AccountDetail> transferFromAccountList = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(transferFrom);
             List<AccountDetail> transferToAccountList = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(transferTo);
             if (Objects.isNull(transferFromUser)){
-                log.info(ErrorTypeEnum.NO_TRANSFER_FROM.getMsg());
+                log.info(ErrorTypeEnum.NO_TRANSFER_FROM_DATA.getMsg());
                 return null;
             }
             if (Objects.isNull(transferToUser)){
-                log.info(ErrorTypeEnum.NO_TRANSFER_TO.getMsg());
+                log.info(ErrorTypeEnum.NO_TRANSFER_TO_DATA.getMsg());
                 return null;
             }
 
