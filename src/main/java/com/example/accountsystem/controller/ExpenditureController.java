@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ExpenditureController {
 
-    private Log log = LogFactory.getLog(ExpenditureController.class);
+    private final Log log = LogFactory.getLog(ExpenditureController.class);
 
     @Autowired
     ExpenditureServiceImpl expenditureService;

@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
             HttpSession session = req.getSession();
             // 把帳號加進session裡面
             session.setAttribute("user", name);
-            String sessionId = session.getId();
+//            String sessionId = session.getId();
             log.info(StatusEnum.LOGIN_SUCCESS.getMsg());
             return "redirect:/index";
         } else {

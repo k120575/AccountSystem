@@ -9,7 +9,6 @@ import com.example.accountsystem.service.InquiryService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -17,14 +16,13 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class InquiryServiceImpl implements InquiryService {
 
-    private Log log = LogFactory.getLog(InquiryServiceImpl.class);
+    private final Log log = LogFactory.getLog(InquiryServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;
@@ -45,18 +43,7 @@ public class InquiryServiceImpl implements InquiryService {
                 int start = (page - 1) * size;
                 int end = page * size;
                 int totalPage = (accountDetails.size() / size) + 1;
-                List<AccountDetail> accountDetailSubList = new ArrayList<>();
-                if (end <= accountDetails.size()){
-                    accountDetailSubList = accountDetails.subList(start, end);
-                } else {
-                    accountDetailSubList = accountDetails.subList(start, accountDetails.size());
-                }
-                model.addAttribute("hasData", true);
-                model.addAttribute("balance", accountDetails.get(0).getBalance());
-                model.addAttribute("currentPage", page);
-                model.addAttribute("totalPage", totalPage);
-                model.addAttribute("size", size);
-                model.addAttribute("accountDetails", accountDetailSubList);
+                setAccountDetails(page, size, model, accountDetails, start, end, totalPage);
             } else {
                 model.addAttribute("hasData", false);
                 model.addAttribute("balance", 0);
@@ -116,20 +103,24 @@ public class InquiryServiceImpl implements InquiryService {
         } else {
             int start = (page - 1) * size;
             int end = page * size;
-            int totalPage = (int)(accountDetails.size() / size) + 1;
-            List<AccountDetail> accountDetailSubList = new ArrayList<>();
-            if (end <= accountDetails.size()){
-                accountDetailSubList = accountDetails.subList(start, end);
-            } else {
-                accountDetailSubList = accountDetails.subList(start, accountDetails.size());
-            }
-            model.addAttribute("hasData", true);
-            model.addAttribute("balance", accountDetails.get(0).getBalance());
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalPage", totalPage);
-            model.addAttribute("size", size);
-            model.addAttribute("accountDetails", accountDetailSubList);
+            int totalPage = (accountDetails.size() / size) + 1;
+            setAccountDetails(page, size, model, accountDetails, start, end, totalPage);
             log.info(StatusEnum.SEARCH_SUCCESS.getMsg());
         }
+    }
+
+    private void setAccountDetails(Integer page, Integer size, Model model, List<AccountDetail> accountDetails, int start, int end, int totalPage) {
+        List<AccountDetail> accountDetailSubList;
+        if (end <= accountDetails.size()){
+            accountDetailSubList = accountDetails.subList(start, end);
+        } else {
+            accountDetailSubList = accountDetails.subList(start, accountDetails.size());
+        }
+        model.addAttribute("hasData", true);
+        model.addAttribute("balance", accountDetails.get(0).getBalance());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("size", size);
+        model.addAttribute("accountDetails", accountDetailSubList);
     }
 }

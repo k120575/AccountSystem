@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
 
-    private Log log = LogFactory.getLog(IndexController.class);
+    private final Log log = LogFactory.getLog(IndexController.class);
 
     @GetMapping("/index")
     private String index(Model model, HttpServletRequest request){

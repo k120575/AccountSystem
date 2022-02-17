@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service
 public class TransferServiceImpl implements TransferService {
 
-    private Log log = LogFactory.getLog(TransferServiceImpl.class);
+    private final Log log = LogFactory.getLog(TransferServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class TransferController {
 
-    private Log log = LogFactory.getLog(TransferController.class);
+    private final Log log = LogFactory.getLog(TransferController.class);
 
     @Autowired
     TransferServiceImpl transferService;

@@ -15,7 +15,7 @@ import java.util.Objects;
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
-    private Log log = LogFactory.getLog(RegisterServiceImpl.class);
+    private final Log log = LogFactory.getLog(RegisterServiceImpl.class);
 
     @Autowired
     UserRepository userRepository;

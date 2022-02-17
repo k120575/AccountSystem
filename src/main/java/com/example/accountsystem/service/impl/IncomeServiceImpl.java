@@ -20,7 +20,7 @@ import java.util.Objects;
 @Service
 public class IncomeServiceImpl implements IncomeService {
 
-    private Log log = LogFactory.getLog(IncomeServiceImpl.class);
+    private final Log log = LogFactory.getLog(IncomeServiceImpl.class);
 
     @Autowired
     AccountDetailRepository accountDetailRepository;
@@ -42,7 +42,7 @@ public class IncomeServiceImpl implements IncomeService {
             }
             String user = (String)request.getSession().getAttribute("user") ;
             // 餘額預設維0
-            int newBalance = 0;
+            int newBalance;
             // 找出所有帳務資料，如果有資料就把輸入金額加上最新的餘額，沒資料就把輸入金額當最新的餘額
             List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
             if (accountDetails.size() != 0){

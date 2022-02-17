@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IncomeController {
 
-    private Log log = LogFactory.getLog(IncomeController.class);
+    private final Log log = LogFactory.getLog(IncomeController.class);
 
     @Autowired
     IncomeServiceImpl incomeService;
