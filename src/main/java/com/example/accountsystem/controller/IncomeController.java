@@ -28,12 +28,19 @@ public class IncomeController {
         } else {
             model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
-            return "index";
+            return "login";
         }
     }
 
     @PostMapping("/income")
     public String income(Integer credits, String incomeType, String comment, Model model, HttpServletRequest request){
-        return incomeService.income(credits, incomeType, comment, model, request);
+        if (request.getSession().getAttribute("user") != null){
+            model.addAttribute("isLogin", true);
+            return incomeService.income(credits, incomeType, comment, model, request);
+        } else {
+            model.addAttribute("isLogin", false);
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
+            return "login";
+        }
     }
 }

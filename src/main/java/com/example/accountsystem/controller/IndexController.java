@@ -14,7 +14,7 @@ public class IndexController {
 
     private final Log log = LogFactory.getLog(IndexController.class);
 
-    @GetMapping("/index")
+    @GetMapping({"/", "/index"})
     private String index(Model model, HttpServletRequest request){
         User user = new User();
         if (request.getSession().getAttribute("user") != null){
@@ -22,9 +22,10 @@ public class IndexController {
             user.setName(name);
             model.addAttribute("user", user);
             model.addAttribute("isLogin", true);
+            return "index";
         } else {
             model.addAttribute("isLogin", false);
+            return "login";
         }
-        return "index";
     }
 }

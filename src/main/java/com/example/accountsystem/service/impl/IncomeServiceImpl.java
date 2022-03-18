@@ -27,41 +27,39 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public String income(Integer credits, String incomeType, String comment, Model model, HttpServletRequest request) {
-        if (request.getSession().getAttribute("user") != null){
-            AccountDetail accountDetail = new AccountDetail();
-            accountDetail.setAction(ActionEnum.INCOME.getMsg());
-            if (Objects.isNull(credits)){
-                log.info(ErrorTypeEnum.NO_MONEY.getMsg());
-                return null;
-            }
-            if (credits >= 0){
-                accountDetail.setCredits(credits);
-            } else {
-                log.info(ErrorTypeEnum.CREDITS_MUST_GREATER_THAN_ZERO.getMsg());
-                return null;
-            }
-            String user = (String)request.getSession().getAttribute("user") ;
-            // 餘額預設維0
-            int newBalance;
-            // 找出所有帳務資料，如果有資料就把輸入金額加上最新的餘額，沒資料就把輸入金額當最新的餘額
-            List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
-            if (accountDetails.size() != 0){
-                newBalance = credits + accountDetails.get(0).getBalance();
-            } else {
-                newBalance = credits;
-            }
-            accountDetail.setBalance(newBalance);
-            accountDetail.setIncomeType(incomeType);
-            if (Objects.nonNull(comment)){
-                accountDetail.setComment(comment);
-            }
-            accountDetail.setCreateUser(user);
-            accountDetail.setCreateTime(LocalDateTime.now());
-            accountDetailRepository.saveAndFlush(accountDetail);
-            model.addAttribute("user", user);
-            model.addAttribute("isLogin", true);
-            log.info(StatusEnum.INCOME_SUCCESS.getMsg());
+        AccountDetail accountDetail = new AccountDetail();
+        accountDetail.setAction(ActionEnum.INCOME.getMsg());
+        if (Objects.isNull(credits)){
+            log.info(ErrorTypeEnum.NO_MONEY.getMsg());
+            return null;
         }
+        if (credits >= 0){
+            accountDetail.setCredits(credits);
+        } else {
+            log.info(ErrorTypeEnum.CREDITS_MUST_GREATER_THAN_ZERO.getMsg());
+            return null;
+        }
+        String user = (String)request.getSession().getAttribute("user") ;
+        // 餘額預設維0
+        int newBalance;
+        // 找出所有帳務資料，如果有資料就把輸入金額加上最新的餘額，沒資料就把輸入金額當最新的餘額
+        List<AccountDetail> accountDetails = accountDetailRepository.findByCreateUserOrderByCreateTimeDesc(user);
+        if (accountDetails.size() != 0){
+            newBalance = credits + accountDetails.get(0).getBalance();
+        } else {
+            newBalance = credits;
+        }
+        accountDetail.setBalance(newBalance);
+        accountDetail.setIncomeType(incomeType);
+        if (Objects.nonNull(comment)){
+            accountDetail.setComment(comment);
+        }
+        accountDetail.setCreateUser(user);
+        accountDetail.setCreateTime(LocalDateTime.now());
+        accountDetailRepository.saveAndFlush(accountDetail);
+        model.addAttribute("user", user);
+        model.addAttribute("isLogin", true);
+        log.info(StatusEnum.INCOME_SUCCESS.getMsg());
         return "redirect:/index";
     }
 }

@@ -11,5 +11,5 @@ public interface AccountDetailRepository extends JpaRepository<AccountDetail, In
 
     List<AccountDetail> findByCreateUserOrderByCreateTimeDesc(String user);
 
-    List<AccountDetail> findByCreateTimeBetweenOrderByCreateTimeDesc(LocalDateTime startDate, LocalDateTime endDate);
+    List<AccountDetail> findByCreateUserAndCreateTimeBetweenOrderByCreateTimeDesc(String user, LocalDateTime startDate, LocalDateTime endDate);
 }

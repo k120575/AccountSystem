@@ -28,12 +28,19 @@ public class ExpenditureController {
         } else {
             model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
-            return "index";
+            return "login";
         }
     }
 
     @PostMapping("/expenditure")
     public String expenditure(Integer credits, String expenditureType, String comment, Model model, HttpServletRequest request){
-        return expenditureService.expenditure(credits, expenditureType, comment, model, request);
+        if (request.getSession().getAttribute("user") != null){
+            model.addAttribute("isLogin", true);
+            return expenditureService.expenditure(credits, expenditureType, comment, model, request);
+        } else {
+            model.addAttribute("isLogin", false);
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
+            return "login";
+        }
     }
 }

@@ -28,12 +28,19 @@ public class TransferController {
         } else {
             model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
-            return "index";
+            return "login";
         }
     }
 
     @PostMapping("/transfer")
     public String transfer(String transferFrom, String transferTo, Integer credits, String comment, Model model, HttpServletRequest request){
-        return transferService.transfer(transferFrom, transferTo, credits, comment, model, request);
+        if (request.getSession().getAttribute("user") != null) {
+            model.addAttribute("isLogin", true);
+            return transferService.transfer(transferFrom, transferTo, credits, comment, model, request);
+        } else {
+            model.addAttribute("isLogin", false);
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
+            return "login";
+        }
     }
 }

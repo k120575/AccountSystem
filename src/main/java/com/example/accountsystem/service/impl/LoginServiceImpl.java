@@ -55,6 +55,6 @@ public class LoginServiceImpl implements LoginService {
         req.getSession().removeAttribute("user");
         req.logout();
         log.info(ActionEnum.LOGOUT.getMsg());
-        return "redirect:/index";
+        return "redirect:/login";
     }
 }
