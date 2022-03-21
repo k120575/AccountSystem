@@ -26,7 +26,6 @@ public class TransferController {
             model.addAttribute("isLogin", true);
             return "transfer";
         } else {
-            model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "login";
         }

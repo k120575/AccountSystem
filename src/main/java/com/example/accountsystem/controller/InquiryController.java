@@ -29,7 +29,6 @@ public class InquiryController {
             model.addAttribute("isLogin", true);
             return inquiryService.getInquiry(page, size, model, req);
         } else {
-            model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "login";
         }

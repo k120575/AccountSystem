@@ -26,7 +26,6 @@ public class ExpenditureController {
             model.addAttribute("isLogin", true);
             return "expenditure";
         } else {
-            model.addAttribute("isLogin", false);
             log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "login";
         }

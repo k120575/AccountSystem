@@ -1,6 +1,7 @@
 package com.example.accountsystem.controller;
 
 import com.example.accountsystem.entity.User;
+import com.example.accountsystem.enums.ErrorTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class IndexController {
             model.addAttribute("isLogin", true);
             return "index";
         } else {
-            model.addAttribute("isLogin", false);
+            log.info(ErrorTypeEnum.NOT_LOGIN.getMsg());
             return "login";
         }
     }
